@@ -35,6 +35,9 @@
     .work-dots button[aria-current="true"]::before{background:var(--gold);transform:scale(1.2)}
     .work-dots button:focus-visible{outline:1px solid var(--gold);outline-offset:1px;border-radius:50%}
     .work-card[data-original-index="0"]{background:linear-gradient(145deg,#1b3949,#0a1721 82%)}
+    .button,.nav-cta,button{transition:transform .2s ease,background-color .2s ease,border-color .2s ease,color .2s ease}
+    button:not(:disabled):hover,.button:hover,.nav-cta:hover{transform:translateY(-2px)}
+    @media(prefers-reduced-motion:reduce){.button,.nav-cta,button{transition:none!important}button:hover,.button:hover,.nav-cta:hover{transform:none}}
     @media(max-width:760px){.work-carousel{margin:0}.work-controls{right:-18px;left:-18px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   </style>
