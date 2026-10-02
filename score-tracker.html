@@ -142,8 +142,8 @@
         }
       }
       choices.forEach(choice => choice.addEventListener('change', () => updatePlan(choice)));
-      periods.forEach(option => option.addEventListener('change', updatePlan));
-      extraDevice.addEventListener('change', updatePlan);
+      periods.forEach(option => option.addEventListener('change', () => updatePlan()));
+      extraDevice.addEventListener('change', () => updatePlan());
       updatePlan();
     })();
   </script>
