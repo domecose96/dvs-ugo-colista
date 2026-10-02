@@ -25,6 +25,14 @@
     .contact-box{align-items:center;padding:40px 46px}.contact-form{gap:14px}.contact-form textarea{min-height:108px}.contact-form .form-status:empty{min-height:0}.contact-form .contact-label{display:block}.contact-form .contact-label small{color:#aab5c0;font-size:inherit;font-weight:400}
     @media(max-width:760px){.contact-box{padding:32px 26px}}
     .work-carousel{margin:0}
+    .work-controls{left:-60px;right:-60px}
+    .work-rail{scrollbar-width:none;scrollbar-color:transparent transparent}
+    .work-rail::-webkit-scrollbar{display:none;width:0;height:0}
+    .work-dots{display:flex;justify-content:center;gap:7px;padding-top:12px}
+    .work-dots button{display:grid;place-items:center;width:22px;height:22px;padding:0;border:0;background:transparent;cursor:pointer}
+    .work-dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);transition:background .2s,transform .2s}
+    .work-dots button[aria-current="true"]::before{background:var(--gold);transform:scale(1.2)}
+    .work-dots button:focus-visible{outline:1px solid var(--gold);outline-offset:1px;border-radius:50%}
     .work-card[data-original-index="0"]{background:linear-gradient(145deg,#1b3949,#0a1721 82%)}
     @media(max-width:760px){.work-carousel{margin:0}.work-controls{right:-27px;left:-27px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -43,7 +51,7 @@
     <section class="wrap content" id="servizi"><div class="section-head"><div><div class="eyebrow">Cosa facciamo</div><h2>Diamo forma alle storie.</h2></div><p>Un partner creativo per trasformare un’intuizione in un progetto chiaro, curato e capace di arrivare alle persone.</p></div>
       <div class="cards"><article class="card"><span class="num">01 / STRATEGIA</span><h3>Comunicazione & PR</h3><p>Consulenza, relazioni pubbliche e comunicazione per dare direzione e coerenza a ogni messaggio.</p></article><article class="card"><span class="num">02 / CONTENUTI</span><h3>Produzione audiovisiva</h3><p>Ideazione e produzione di contenuti per video, cinema, radio e campagne pubblicitarie.</p></article><article class="card"><span class="num">03 / PROGETTI</span><h3>Digitale & iniziative</h3><p>Progetti web e multimediali, eventi, incontri e iniziative culturali e commerciali.</p></article></div>
     </section>
-    <section class="wrap content work" id="progetti"><div class="section-head"><div><div class="eyebrow">I miei lavori · selezione</div><h2>Progetti che raccontano il territorio.</h2></div><p>Una selezione di produzioni e collaborazioni documentate. Il portfolio è pensato per accogliere nuovi lavori e materiali video.</p></div><div class="work-toolbar"><span class="work-hint">Scorri il catalogo per esplorare i progetti</span></div><div class="work-carousel" id="workCarousel" role="region" aria-roledescription="carosello" aria-label="Lavori selezionati DVS"><div class="work-controls" aria-label="Controlli del carosello"><button class="carousel-arrow" type="button" data-scroll="-1" aria-label="Progetto precedente" aria-controls="workRail" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 3.5-6.5 6.5 6.5 6.5"/></svg></button><button class="carousel-arrow" type="button" data-scroll="1" aria-label="Progetto successivo" aria-controls="workRail"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 3.5 6.5 6.5-6.5 6.5"/></svg></button></div><div class="work-rail" id="workRail" tabindex="0" aria-label="Catalogo dei lavori DVS, scorribile orizzontalmente"><article class="work-card"><div><span class="num">DOCUMENTARIO · L’AQUILA</span><h3>Grande cuore neroverde</h3><p>Il documentario di Ugo Colista dedicato alla storia e alle persone dell’Aquila Rugby, presentato durante una commemorazione pubblica nel 2009.</p></div><a href="https://www.trgmedia.it/Foligno-Celebrato-a-L-Aquila-il-folignate-Tommaso-Fattori-presidente-della-societ-224-abruzzese-/news-27112.aspx" target="_blank" rel="noreferrer">Leggi l’articolo di stampa</a></article><article class="work-card"><div><span class="num">SPORT · DIRETTA TELEVISIVA</span><h3>I playoff dell’Aquila Calcio</h3><p>Nel 2011 DVS Produzioni Televisive, diretta da Ugo Colista, collaborò con Onda TV per la trasmissione regionale dei playoff dell’Aquila Calcio.</p></div><a href="https://calciopeligno.blogspot.com/2011/05/" target="_blank" rel="noreferrer">Consulta la notizia</a></article><article class="work-card"><div><span class="num">ARCHIVIO · MEMORIA SPORTIVA</span><h3>Le immagini storiche dell’Aquila Rugby</h3><p>Una collaborazione di Ugo Colista per il reperimento di immagini storiche, nell’ambito di un’iniziativa dedicata al Sei Nazioni e al patrimonio culturale.</p></div><a href="https://cultura.gov.it/rugby" target="_blank" rel="noreferrer">Approfondimento · Ministero della Cultura</a></article></div></div><div style="margin-top:26px"><a class="work-video" href="https://www.youtube.com/results?search_query=Ugo+Colista+DVS" target="_blank" rel="noreferrer">Cerca video DVS su YouTube</a></div></section>
+    <section class="wrap content work" id="progetti"><div class="section-head"><div><div class="eyebrow">I miei lavori · selezione</div><h2>Progetti che raccontano il territorio.</h2></div><p>Una selezione di produzioni e collaborazioni documentate. Il portfolio è pensato per accogliere nuovi lavori e materiali video.</p></div><div class="work-toolbar"><span class="work-hint">Scorri il catalogo per esplorare i progetti</span></div><div class="work-carousel" id="workCarousel" role="region" aria-roledescription="carosello" aria-label="Lavori selezionati DVS"><div class="work-controls" aria-label="Controlli del carosello"><button class="carousel-arrow" type="button" data-scroll="-1" aria-label="Progetto precedente" aria-controls="workRail"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 3.5-6.5 6.5 6.5 6.5"/></svg></button><button class="carousel-arrow" type="button" data-scroll="1" aria-label="Progetto successivo" aria-controls="workRail"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 3.5 6.5 6.5-6.5 6.5"/></svg></button></div><div class="work-rail" id="workRail" tabindex="0" aria-label="Catalogo dei lavori DVS, scorribile orizzontalmente"><article class="work-card"><div><span class="num">DOCUMENTARIO · L’AQUILA</span><h3>Grande cuore neroverde</h3><p>Il documentario di Ugo Colista dedicato alla storia e alle persone dell’Aquila Rugby, presentato durante una commemorazione pubblica nel 2009.</p></div><a href="https://www.trgmedia.it/Foligno-Celebrato-a-L-Aquila-il-folignate-Tommaso-Fattori-presidente-della-societ-224-abruzzese-/news-27112.aspx" target="_blank" rel="noreferrer">Leggi l’articolo di stampa</a></article><article class="work-card"><div><span class="num">SPORT · DIRETTA TELEVISIVA</span><h3>I playoff dell’Aquila Calcio</h3><p>Nel 2011 DVS Produzioni Televisive, diretta da Ugo Colista, collaborò con Onda TV per la trasmissione regionale dei playoff dell’Aquila Calcio.</p></div><a href="https://calciopeligno.blogspot.com/2011/05/" target="_blank" rel="noreferrer">Consulta la notizia</a></article><article class="work-card"><div><span class="num">ARCHIVIO · MEMORIA SPORTIVA</span><h3>Le immagini storiche dell’Aquila Rugby</h3><p>Una collaborazione di Ugo Colista per il reperimento di immagini storiche, nell’ambito di un’iniziativa dedicata al Sei Nazioni e al patrimonio culturale.</p></div><a href="https://cultura.gov.it/rugby" target="_blank" rel="noreferrer">Approfondimento · Ministero della Cultura</a></article></div><div class="work-dots" role="group" aria-label="Seleziona un progetto"><button type="button" data-project-index="0" aria-label="Vai al progetto 1" aria-current="true"></button><button type="button" data-project-index="1" aria-label="Vai al progetto 2" aria-current="false"></button><button type="button" data-project-index="2" aria-label="Vai al progetto 3" aria-current="false"></button></div></div><div style="margin-top:26px"><a class="work-video" href="https://www.youtube.com/results?search_query=Ugo+Colista+DVS" target="_blank" rel="noreferrer">Cerca video DVS su YouTube</a></div></section>
     <section class="wrap content film" id="dietro-le-quinte"><div class="film-layout"><div class="film-copy"><div class="eyebrow">Dietro le quinte · Produzione sportiva</div><h2>La partita si racconta anche dalla regia.</h2><p>Dalla postazione di controllo, immagini e segnali diventano una diretta da seguire in tempo reale. Uno sguardo al lavoro DVS durante una produzione sportiva sul campo.</p></div><figure class="film-frame"><video controls playsinline preload="metadata" poster="assets/video/dvs-regia-poster.png" aria-label="Riprese dalla regia di una diretta sportiva DVS"><source src="assets/video/dvs-regia-sport.mp4" type="video/mp4">Il tuo browser non supporta la riproduzione video.</video><figcaption class="film-caption"><span>Produzione televisiva · Riprese dalla regia</span><span>Video DVS</span></figcaption></figure></div></section>
     <section class="wrap content"><div class="section-head"><div><div class="eyebrow">Il metodo</div><h2>Dal primo confronto alla consegna.</h2></div><p>Un percorso semplice aiuta a tenere insieme idea, persone e risultato.</p></div><div class="method"><article class="step"><span>01 / ASCOLTO</span><h3>Capire il contesto</h3><p>Obiettivi, pubblico e materiali disponibili diventano il punto di partenza.</p></article><article class="step"><span>02 / IDEA</span><h3>Dare una direzione</h3><p>Si definiscono il messaggio, il formato e il tono più adatti.</p></article><article class="step"><span>03 / REALIZZAZIONE</span><h3>Costruire il progetto</h3><p>Contenuti e attività prendono forma con attenzione ai dettagli.</p></article><article class="step"><span>04 / DIFFUSIONE</span><h3>Portarlo alle persone</h3><p>Il progetto viene preparato per i canali e i pubblici previsti.</p></article></div></section>
     <section class="content about" id="azienda"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Chi siamo</div><h2>Uno sguardo creativo, radicato nel territorio.</h2></div><p>DVS è la sigla di una realtà indipendente con sede in Abruzzo e una vocazione che unisce media, comunicazione e cultura.</p></div><div class="about-grid"><div class="about-mark"><img src="assets/dvs-logo.svg" alt="Logo DVS"><span>DVS · UGO COLISTA</span></div><div class="about-copy"><p><strong>DVS di Ugo Colista</strong> opera nell’ambito delle pubbliche relazioni e della comunicazione. Le informazioni societarie pubbliche descrivono attività che spaziano dalla produzione audiovisiva alla creazione di siti e materiali multimediali, fino all’organizzazione di manifestazioni.</p><p class="statement">Ogni progetto comincia ascoltando. E prende forma con cura, visione e concretezza.</p></div></div></div></section>
@@ -82,18 +90,28 @@
         }
       });
     });
+    const projectDots = Array.from(document.querySelectorAll('.work-dots [data-project-index]'));
+    const updateProjectDots = () => {
+      const currentIndex = ((Math.round((workRail.scrollLeft - loopPoint()) / projectStep()) % originalProjects.length) + originalProjects.length) % originalProjects.length;
+      projectDots.forEach((dot, index) => dot.setAttribute('aria-current', String(index === currentIndex)));
+    };
     workRail.addEventListener('scrollend', () => {
-      if (resettingLoop) return;
-      const point = loopPoint();
-      const offset = workRail.scrollLeft;
-      const shift = offset < point - 2 ? point : offset > point * 2 - 2 ? -point : 0;
-      if (!shift) return;
-      resettingLoop = true;
-      requestAnimationFrame(() => {
-        workRail.scrollTo({ left: workRail.scrollLeft + shift, behavior: 'instant' });
-        resettingLoop = false;
-      });
-    }, { passive: true });
+      if (!resettingLoop) {
+        const point = loopPoint();
+        const offset = workRail.scrollLeft;
+        const shift = offset < point - 2 ? point : offset > point * 2 - 2 ? -point : 0;
+        if (shift) {
+          resettingLoop = true;
+          workRail.scrollTo({ left: offset + shift, behavior: 'instant' });
+          resettingLoop = false;
+        }
+      }
+      updateProjectDots();
+    });
+    projectDots.forEach((dot) => dot.addEventListener('click', () => {
+      workRail.scrollTo({ left: loopPoint() + Number(dot.dataset.projectIndex) * projectStep(), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    }));
+    updateProjectDots();
     let carouselTimer;
     const startCarousel = () => {
       clearInterval(carouselTimer);
