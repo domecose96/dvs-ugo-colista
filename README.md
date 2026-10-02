@@ -19,6 +19,8 @@ Aprire `index.html` in un browser. Non servono dipendenze o una fase di build.
 Il modulo invia nome, email di risposta, telefono facoltativo, ambito del progetto
 e messaggio tramite Web3Forms all’indirizzo DVS configurato per la chiave. Prima di
 modificare o rigenerare la chiave, aggiornare la variabile `web3FormsAccessKey` in
-`index.html`. L’informativa collegata al modulo si trova in `privacy.html`.
+`index.html`. L’indirizzo inserito dal visitatore viene impostato come `replyto`,
+così la risposta alla notifica email torna direttamente a chi ha compilato il
+modulo. L’informativa collegata al modulo si trova in `privacy.html`.
 
 Il marchio SVG in `assets/dvs-logo.svg` è una ricostruzione vettoriale basata sul logo fornito come immagine di riferimento.
