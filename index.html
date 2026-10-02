@@ -50,45 +50,37 @@
     const previousProject = document.querySelector('[data-scroll="-1"]');
     const nextProject = document.querySelector('[data-scroll="1"]');
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
-    let autoScrolling = false;
-    let rotationTimer;
+    const projectCards = [...workRail.querySelectorAll('.work-card')];
+    let activeProject = 0;
+    const getProjectLeft = (index) => {
+      const railLeft = workRail.getBoundingClientRect().left;
+      return projectCards[index].getBoundingClientRect().left - railLeft + workRail.scrollLeft;
+    };
+    const showProject = (index) => {
+      activeProject = (index + projectCards.length) % projectCards.length;
+      workRail.scrollTo({ left: getProjectLeft(activeProject), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    };
     const updateProjectControls = () => {
       const maxScroll = workRail.scrollWidth - workRail.clientWidth;
-      const card = workRail.querySelector('.work-card');
-      const gap = parseFloat(getComputedStyle(workRail).gap) || 0;
-      const step = (card?.getBoundingClientRect().width ?? workRail.clientWidth) + gap;
+      const railLeft = workRail.getBoundingClientRect().left;
+      activeProject = projectCards.reduce((closest, card, index) => {
+        const distance = Math.abs(card.getBoundingClientRect().left - railLeft);
+        const closestDistance = Math.abs(projectCards[closest].getBoundingClientRect().left - railLeft);
+        return distance < closestDistance ? index : closest;
+      }, 0);
+      const step = projectCards[1] ? getProjectLeft(1) : workRail.clientWidth;
       previousProject.disabled = workRail.scrollLeft <= step / 2;
       nextProject.disabled = workRail.scrollLeft >= maxScroll - step / 2;
     };
-    const scheduleRotation = () => {
-      clearTimeout(rotationTimer);
-      rotationTimer = setTimeout(() => {
-        const card = workRail.querySelector('.work-card');
-        const gap = parseFloat(getComputedStyle(workRail).gap) || 0;
-        const step = (card?.getBoundingClientRect().width ?? workRail.clientWidth) + gap;
-        const maxScroll = workRail.scrollWidth - workRail.clientWidth;
-        const atEnd = workRail.scrollLeft >= maxScroll - step / 2;
-        autoScrolling = true;
-        workRail.scrollTo({ left: atEnd ? 0 : Math.min(maxScroll, workRail.scrollLeft + step), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-        setTimeout(() => { autoScrolling = false; scheduleRotation(); }, reduceMotion.matches ? 80 : 700);
-      }, 6500);
-    };
     document.querySelectorAll('[data-scroll]').forEach((button) => {
       button.addEventListener('click', () => {
-        const card = workRail.querySelector('.work-card');
-        const gap = parseFloat(getComputedStyle(workRail).gap) || 0;
-        const distance = ((card?.getBoundingClientRect().width ?? workRail.clientWidth) + gap) * Number(button.dataset.scroll);
-        workRail.scrollBy({ left: distance, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-        scheduleRotation();
+        showProject(activeProject + Number(button.dataset.scroll));
       });
     });
-    workRail.addEventListener('scroll', () => {
-      updateProjectControls();
-      if (!autoScrolling) scheduleRotation();
-    }, { passive: true });
+    workRail.addEventListener('scroll', updateProjectControls, { passive: true });
     window.addEventListener('resize', updateProjectControls);
     updateProjectControls();
-    scheduleRotation();
+    setInterval(() => showProject(activeProject + 1), 6500);
   </script>
 </body>
 </html>
