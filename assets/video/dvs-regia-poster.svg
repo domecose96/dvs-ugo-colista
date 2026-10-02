@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#122c3c"/>
+      <stop offset=".55" stop-color="#07111c"/>
+      <stop offset="1" stop-color="#03080e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#e4ae45"/><stop offset=".54" stop-color="#d49b31"/><stop offset="1" stop-color="#fff4d5"/>
+    </linearGradient>
+    <radialGradient id="glow"><stop stop-color="#24617a" stop-opacity=".28"/><stop offset="1" stop-color="#07111c" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <ellipse cx="660" cy="355" rx="610" ry="480" fill="url(#glow)"/>
+  <g fill="none" stroke="#d9a642" stroke-opacity=".18">
+    <path d="M0 520h1280M0 565h1280M0 610h1280"/>
+    <path d="M100 720 350 440m180 280 130-280m180 280L740 440m440 280L930 440"/>
+    <path d="M80 720V560q0-130 130-130h860q130 0 130 130v160"/>
+  </g>
+  <g fill="url(#gold)" transform="translate(445 178) scale(1.03)">
+    <path d="M13 19c32 6 72 21 98 39 27 19 26 32-2 48-25 15-61 26-96 31 18-17 36-34 43-49 7-16-12-42-43-69Z"/>
+    <path d="M119 11c27-1 48 20 68 60 15-38 36-60 64-63-27 31-35 78-64 132-27-52-36-100-68-129Z"/>
+    <path d="M271 27c25-17 62-20 91-7-26 1-47 7-56 20-9 14 18 20 36 36 23 20 10 41-18 54-25 12-54 10-70-3 25 4 48-4 51-16 3-12-25-21-39-36-18-18-13-37 5-48Z"/>
+  </g>
+  <text x="640" y="405" text-anchor="middle" fill="#e8edf0" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="8">PRODUZIONE SPORTIVA</text>
+  <text x="640" y="454" text-anchor="middle" fill="#9cabb7" font-family="Arial,sans-serif" font-size="17" letter-spacing="5">DIETRO LE QUINTE · DVS</text>
+  <path d="M570 514h140" stroke="#d9a642" stroke-opacity=".75" stroke-width="2"/>
+</svg>
