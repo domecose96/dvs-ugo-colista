@@ -24,3 +24,21 @@ così la risposta alla notifica email torna direttamente a chi ha compilato il
 modulo. L’informativa collegata al modulo si trova in `privacy.html`.
 
 Il marchio SVG in `assets/dvs-logo.svg` è una ricostruzione vettoriale basata sul logo fornito come immagine di riferimento.
+
+## Download ScoreTracker
+
+La pagina prodotto `score-tracker.html` contiene il pulsante Download verso
+`score-tracker-download.html`. La versione disponibile è la 1.0.0.
+Gli installer sono ospitati su GitHub Releases nel repository
+`domecose96/ScoreTracker-Downloads`, tag `v1.0.0`:
+
+- Windows x64: https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.0/ScoreTracker-Setup-v1.0.0.exe
+- macOS Apple Silicon (M1 e successivi, non Intel): https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.0/ScoreTracker-macOS-v1.0.0.dmg
+
+Java è incluso; per utilizzare l’app serve una licenza valida. La pagina segnala
+che Windows non è firmato digitalmente e macOS non è notarizzato.
+Caricare solo installer definitivi. Per ogni rilascio aggiornare versione, link,
+compatibilità effettiva e note reali nella pagina e nella presentazione prodotto.
+La pagina non implementa un controllo aggiornamenti: quello esistente nell’app
+rimane collegato al suo server. Versione e relativi link sul server si configurano
+nella chat ScoreTracker; questo progetto non introduce un `updates.json`.
