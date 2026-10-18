@@ -28,15 +28,17 @@ Il marchio SVG in `assets/dvs-logo.svg` è una ricostruzione vettoriale basata s
 ## Download ScoreTracker
 
 La pagina prodotto `score-tracker.html` contiene il pulsante Download verso
-`score-tracker-download.html`. La versione disponibile è la 1.0.0.
+`score-tracker-download.html`. La versione disponibile è la 1.0.1.
 Gli installer sono ospitati su GitHub Releases nel repository
-`domecose96/ScoreTracker-Downloads`, tag `v1.0.0`:
+`domecose96/ScoreTracker-Downloads`, tag `v1.0.1`:
 
-- Windows x64: https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.0/ScoreTracker-Setup-v1.0.0.exe
-- macOS Apple Silicon (M1 e successivi, non Intel): https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.0/ScoreTracker-macOS-v1.0.0.dmg
+- Windows x64: https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-Setup-v1.0.1.exe
+- macOS Apple Silicon (M1 e successivi, non Intel): https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-macOS-v1.0.1.dmg
 
 Java è incluso; per utilizzare l’app serve una licenza valida. La pagina segnala
 che Windows non è firmato digitalmente e macOS non è notarizzato.
+Per aggiornare, chiudere ScoreTracker e installare la nuova versione senza disinstallare
+la precedente. Eseguire prima un backup della cartella dati.
 Caricare solo installer definitivi. Per ogni rilascio aggiornare versione, link,
 compatibilità effettiva e note reali nella pagina e nella presentazione prodotto.
 La pagina non implementa un controllo aggiornamenti: quello esistente nell’app

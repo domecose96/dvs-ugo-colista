@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07100d">
-  <meta name="description" content="Scarica ScoreTracker 1.0.0 per Windows x64 e macOS Apple Silicon. Java incluso; è richiesta una licenza valida.">
+  <meta name="description" content="Scarica ScoreTracker 1.0.1 per Windows x64 e macOS Apple Silicon. Java incluso; è richiesta una licenza valida.">
   <title>Download — ScoreTracker</title>
   <link rel="icon" type="image/png" href="assets/score-tracker/scoretracker-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +27,7 @@
     .format{color:var(--lime);font-size:10px;font-weight:700;letter-spacing:.14em}.platform h2{margin:16px 0 12px;font:600 clamp(25px,3vw,30px)/1.2 'Manrope',sans-serif;letter-spacing:-.04em}.platform p{margin:0 0 22px;color:var(--muted);font-size:14px;line-height:1.7}.platform .installer-note{align-self:stretch;margin:0 0 24px;padding:12px 14px;border-left:2px solid #e4ae45;background:rgba(228,174,69,.06);color:#e5cfa5;font-size:13px}
     .button{display:flex;align-items:center;justify-content:center;align-self:stretch;min-height:50px;padding:14px 16px;border:1px solid rgba(195,244,54,.35);border-radius:3px;background:var(--lime);color:#10170a;text-align:center;font:700 13px/1.5 'DM Sans',sans-serif;transition:background-color .2s ease}.button:hover{background:#d5ff51;color:#10170a}.availability{display:block;margin-top:14px;color:var(--muted);font-size:12px;line-height:1.5}
     .release-notes{margin-top:40px;padding-top:30px;border-top:1px solid var(--line)}.release-notes h2{margin:12px 0 14px;font:600 25px 'Manrope',sans-serif;letter-spacing:-.04em}.release-notes p:not(.eyebrow){max-width:680px;margin:0;color:var(--muted);font-size:14px;line-height:1.8}.help{display:inline-block;margin-top:24px;color:var(--lime);font-size:13px;text-decoration:underline;text-underline-offset:4px}footer{display:flex;justify-content:space-between;gap:20px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+    .update-instructions{margin:0 0 24px;padding:16px 20px;border:1px solid var(--line);background:rgba(7,16,13,.8);color:var(--muted);font-size:14px;line-height:1.8}.update-instructions p{margin:0}.update-instructions p+p{margin-top:6px}.update-instructions strong{color:var(--white)}
     .release-notes p:not(.eyebrow) + p{margin-top:14px}
     @media(max-width:680px){.wrap{width:calc(100% - 36px)}.header-inner{padding:16px 0;gap:16px;flex-wrap:wrap}.brand small{font-size:8px}nav{gap:20px;font-size:12px}main{padding:40px 0 56px}main:before,main:after{height:570px}main:before{background-position:57% bottom;opacity:.43}main:after{background:linear-gradient(90deg,rgba(7,16,13,.92),rgba(7,16,13,.58)),linear-gradient(0deg,#07100d 0%,transparent 60%)}.requirements{grid-template-columns:1fr;gap:16px;margin-top:26px}.platforms{grid-template-columns:1fr;row-gap:18px}.platform{grid-template-rows:auto;grid-row:auto;padding:26px}.platform p{margin-bottom:20px}.platform .installer-note{margin-bottom:22px}.intro{font-size:15px}footer{flex-wrap:wrap}}
   </style>
@@ -44,35 +45,39 @@
     <p class="eyebrow">ScoreTracker per desktop</p>
     <h1 id="download-title">Scarica ScoreTracker.</h1>
     <p class="intro">Scarica ScoreTracker per il tuo sistema operativo e prepara la tua prossima partita.</p>
-    <p class="release-status">Versione 1.0.0</p>
+    <p class="release-status">Versione 1.0.1</p>
     </div>
     <div class="requirements" aria-label="Informazioni prima del download">
       <p><strong>Java è incluso</strong>Non serve installarlo separatamente.</p>
       <p><strong>È richiesta una licenza valida</strong>Necessaria per utilizzare ScoreTracker.</p>
     </div>
+    <aside class="update-instructions" aria-label="Come aggiornare ScoreTracker">
+      <p>Per aggiornare, chiudi ScoreTracker e installa la nuova versione senza disinstallare quella precedente.</p>
+      <p>Prima dell’aggiornamento esegui un <strong>backup della cartella dati</strong>.</p>
+    </aside>
     <section class="platforms" aria-label="Download per sistema operativo">
       <article class="platform">
         <span class="format">INSTALLER .EXE</span>
         <h2>Windows x64</h2>
         <p>Installer per PC Windows a 64 bit. Java incluso.</p>
         <p class="installer-note" id="windows-signing">L’installer non è firmato digitalmente. Windows potrebbe mostrare un avviso di sicurezza.</p>
-        <a class="button" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.0/ScoreTracker-Setup-v1.0.0.exe" aria-describedby="windows-signing">Scarica per Windows x64</a>
-        <span class="availability">Versione 1.0.0 · File .exe</span>
+        <a class="button" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-Setup-v1.0.1.exe" aria-describedby="windows-signing">Scarica per Windows x64</a>
+        <span class="availability">Versione 1.0.1 · File .exe</span>
       </article>
       <article class="platform">
         <span class="format">INSTALLER .DMG</span>
         <h2>macOS Apple Silicon</h2>
         <p>Per Mac con chip Apple M1 e successivi. <strong>Non compatibile con Mac Intel.</strong> Java incluso.</p>
         <p class="installer-note" id="macos-signing">L’app non è notarizzata. macOS potrebbe mostrare un avviso di sicurezza.</p>
-        <a class="button" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.0/ScoreTracker-macOS-v1.0.0.dmg" aria-describedby="macos-signing">Scarica per macOS Apple Silicon</a>
-        <span class="availability">Versione 1.0.0 · File .dmg</span>
+        <a class="button" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-macOS-v1.0.1.dmg" aria-describedby="macos-signing">Scarica per macOS Apple Silicon</a>
+        <span class="availability">Versione 1.0.1 · File .dmg</span>
       </article>
     </section>
     <section class="release-notes" aria-labelledby="release-notes-title">
       <p class="eyebrow">Note di versione</p>
-      <h2 id="release-notes-title">Versione 1.0.0</h2>
-      <p>ScoreTracker per la gestione di punteggi, cronometri, formazioni e statistiche, con esportazione CSV e integrazione vMix.</p>
-      <p>Disponibile per <strong>Windows x64</strong> e <strong>macOS Apple Silicon (M1 e successivi)</strong>. Java è incluso: non occorre installarlo separatamente. Per utilizzare l’app è necessaria una licenza valida fornita da DVS.</p>
+      <h2 id="release-notes-title">ScoreTracker 1.0.1</h2>
+      <p>Installer per Windows x64 e macOS Apple Silicon, con Java incluso. È richiesta una licenza valida.</p>
+      <p><strong>Novità:</strong> aggiornamento immediato del punteggio dopo una meta, meta di punizione e rinuncia alla trasformazione, capitano in formazione, ordine personalizzato delle pagine vMix, anteprima dei CSV pronti su On Air e correzione della digitazione nei nomi template.</p>
       <p><strong>Nota per l’installazione:</strong> i pacchetti non dispongono ancora della firma digitale Windows e della notarizzazione Apple; il sistema potrebbe mostrare un avviso di sicurezza. La versione Mac non è compatibile con processori Intel.</p>
     </section>
     <a class="help" href="index.html#contatti">Hai bisogno di informazioni? Contatta DVS</a>
