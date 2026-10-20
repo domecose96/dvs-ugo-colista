@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07100d">
-  <meta name="description" content="Scarica ScoreTracker 1.0.1 per Windows x64 e macOS Apple Silicon. Java incluso; è richiesta una licenza valida.">
+  <meta name="description" content="Scarica l’ultima versione di ScoreTracker per Windows x64 e macOS Apple Silicon. Java incluso; è richiesta una licenza valida.">
+  <script type="module" src="assets/score-tracker/downloads.mjs"></script>
   <title>Download — ScoreTracker</title>
   <link rel="icon" type="image/png" href="assets/score-tracker/scoretracker-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,15 +46,16 @@
     <p class="eyebrow">ScoreTracker per desktop</p>
     <h1 id="download-title">Scarica ScoreTracker.</h1>
     <p class="intro">Scarica ScoreTracker per il tuo sistema operativo e prepara la tua prossima partita.</p>
-    <p class="release-status">Versione 1.0.1</p>
+    <p class="release-status" id="release-status" role="status">Versione disponibile</p>
     </div>
     <div class="requirements" aria-label="Informazioni prima del download">
       <p><strong>Java è incluso</strong>Non serve installarlo separatamente.</p>
       <p><strong>È richiesta una licenza valida</strong>Necessaria per utilizzare ScoreTracker.</p>
     </div>
     <aside class="update-instructions" aria-label="Come aggiornare ScoreTracker">
-      <p>Per aggiornare, chiudi ScoreTracker e installa la nuova versione senza disinstallare quella precedente.</p>
+      <p>Puoi aggiornare dalla schermata iniziale dell’app. Per un’installazione manuale, chiudi ScoreTracker e installa la nuova versione senza disinstallare quella precedente.</p>
       <p>Prima dell’aggiornamento esegui un <strong>backup della cartella dati</strong>.</p>
+      <p>Su Mac apri ScoreTracker da <strong>Applicazioni</strong>, non da una cartella sincronizzata con iCloud.</p>
     </aside>
     <section class="platforms" aria-label="Download per sistema operativo">
       <article class="platform">
@@ -61,23 +63,23 @@
         <h2>Windows x64</h2>
         <p>Installer per PC Windows a 64 bit. Java incluso.</p>
         <p class="installer-note" id="windows-signing">L’installer non è firmato digitalmente. Windows potrebbe mostrare un avviso di sicurezza.</p>
-        <a class="button" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-Setup-v1.0.1.exe" aria-describedby="windows-signing">Scarica per Windows x64</a>
-        <span class="availability">Versione 1.0.1 · File .exe</span>
+        <a class="button" href="score-tracker-installer.html?platform=windows" aria-describedby="windows-signing">Scarica per Windows x64</a>
+        <span class="availability" data-release-platform="windows">File .exe</span>
       </article>
       <article class="platform">
         <span class="format">INSTALLER .DMG</span>
         <h2>macOS Apple Silicon</h2>
         <p>Per Mac con chip Apple M1 e successivi. <strong>Non compatibile con Mac Intel.</strong> Java incluso.</p>
         <p class="installer-note" id="macos-signing">L’app non è notarizzata. macOS potrebbe mostrare un avviso di sicurezza.</p>
-        <a class="button" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-macOS-v1.0.1.dmg" aria-describedby="macos-signing">Scarica per macOS Apple Silicon</a>
-        <span class="availability">Versione 1.0.1 · File .dmg</span>
+        <a class="button" href="score-tracker-installer.html?platform=macos" aria-describedby="macos-signing">Scarica per macOS Apple Silicon</a>
+        <span class="availability" data-release-platform="macos">File .dmg</span>
       </article>
     </section>
     <section class="release-notes" aria-labelledby="release-notes-title">
       <p class="eyebrow">Note di versione</p>
-      <h2 id="release-notes-title">ScoreTracker 1.0.1</h2>
+      <h2 id="release-notes-title">ScoreTracker</h2>
       <p>Installer per Windows x64 e macOS Apple Silicon, con Java incluso. È richiesta una licenza valida.</p>
-      <p><strong>Novità:</strong> aggiornamento immediato del punteggio dopo una meta, meta di punizione e rinuncia alla trasformazione, capitano in formazione, ordine personalizzato delle pagine vMix, anteprima dei CSV pronti su On Air e correzione della digitazione nei nomi template.</p>
+      <p><a class="help" id="release-notes-link" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/latest">Novità e dettagli della versione</a></p>
       <p><strong>Nota per l’installazione:</strong> i pacchetti non dispongono ancora della firma digitale Windows e della notarizzazione Apple; il sistema potrebbe mostrare un avviso di sicurezza. La versione Mac non è compatibile con processori Intel.</p>
     </section>
     <a class="help" href="index.html#contatti">Hai bisogno di informazioni? Contatta DVS</a>

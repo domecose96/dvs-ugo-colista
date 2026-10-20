@@ -28,19 +28,37 @@ Il marchio SVG in `assets/dvs-logo.svg` è una ricostruzione vettoriale basata s
 ## Download ScoreTracker
 
 La pagina prodotto `score-tracker.html` contiene il pulsante Download verso
-`score-tracker-download.html`. La versione disponibile è la 1.0.1.
-Gli installer sono ospitati su GitHub Releases nel repository
-`domecose96/ScoreTracker-Downloads`, tag `v1.0.1`:
+`score-tracker-download.html`. Versione e note rimandano automaticamente
+all'ultima release stabile pubblicata in `domecose96/ScoreTracker-Downloads`.
+Non servono aggiornamenti manuali dei numeri versione o dei link nel sito.
 
-- Windows x64: https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-Setup-v1.0.1.exe
-- macOS Apple Silicon (M1 e successivi, non Intel): https://github.com/domecose96/ScoreTracker-Downloads/releases/download/v1.0.1/ScoreTracker-macOS-v1.0.1.dmg
+Indirizzi permanenti, utilizzabili anche in altri siti o messaggi:
+
+- Windows x64: `score-tracker-installer.html?platform=windows`
+- macOS Apple Silicon: `score-tracker-installer.html?platform=macos`
+
+`assets/score-tracker/downloads.mjs` legge l'API pubblica GitHub e accetta
+esclusivamente installer EXE/DMG del repository ufficiale, corrispondenti al
+tag della release, caricati e dotati di digest SHA-256. Bozze, prerelease,
+URL estranei, parametri aggiuntivi e asset duplicati vengono respinti.
+Il gateway risolve di nuovo l'ultima release a ogni apertura; non salva link
+obsoleti in localStorage. Se l'API non risponde, supera il tempo limite o
+raggiunge il rate limit, resta disponibile la pagina ufficiale dei download.
+Anche senza JavaScript esiste il collegamento manuale a GitHub.
 
 Java è incluso; per utilizzare l’app serve una licenza valida. La pagina segnala
 che Windows non è firmato digitalmente e macOS non è notarizzato.
 Per aggiornare, chiudere ScoreTracker e installare la nuova versione senza disinstallare
 la precedente. Eseguire prima un backup della cartella dati.
-Caricare solo installer definitivi. Per ogni rilascio aggiornare versione, link,
-compatibilità effettiva e note reali nella pagina e nella presentazione prodotto.
-La pagina non implementa un controllo aggiornamenti: quello esistente nell’app
-rimane collegato al suo server. Versione e relativi link sul server si configurano
-nella chat ScoreTracker; questo progetto non introduce un `updates.json`.
+Caricare soltanto installer definitivi e verificati, con nomi
+`ScoreTracker-Setup-vX.Y.Z.exe` e `ScoreTracker-macOS-vX.Y.Z.dmg`, in una
+release `vX.Y.Z` contrassegnata come ultima stabile. La pubblicazione da
+ScoreTracker aggiorna cosi' i download del sito senza modificarlo. L'avviso
+nell'app resta gestito dal servizio aggiornamenti/License Manager; non si
+introducono nuovi endpoint nel backend licenze ne' un `updates.json`.
+Compatibilita' e avvisi sulle firme rimangono contenuti editoriali: se cambiano
+i requisiti del prodotto, aggiornare quei testi.
+
+Test: `node --test tests/score-tracker-downloads.test.mjs`.
+Per l'anteprima dei moduli JavaScript usare un server HTTP locale invece di
+aprire direttamente il file HTML.
