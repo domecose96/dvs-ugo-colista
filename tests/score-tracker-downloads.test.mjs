@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseRelease, fetchLatestRelease, showDownloads, startInstaller, LATEST_RELEASE_API, LATEST_RELEASE_URL } from "../assets/score-tracker/downloads.mjs";
+import { parseRelease, fetchLatestRelease, showDownloads, downloadInstaller, startInstaller, LATEST_RELEASE_API, LATEST_RELEASE_URL } from "../assets/score-tracker/downloads.mjs";
 
 function release(version = "1.0.2") {
   const root = "https://github.com/domecose96/ScoreTracker-Downloads/releases";
@@ -80,6 +80,7 @@ test("fetch: API pubblica fissa, senza cookie e senza seguire redirect", async (
     assert.equal(options.redirect, "error");
     assert.equal(options.cache, "no-cache");
     assert.equal(options.referrerPolicy, "no-referrer");
+    assert.equal(options.headers.Accept, "application/vnd.github.html+json");
     return {ok: true, json: async () => release()};
   }});
   assert.equal(result.version, "1.0.2");
@@ -97,10 +98,17 @@ test("fetch: timeout interrompe la richiesta", async () => {
 });
 
 function documentFixture() {
-  const ids = Object.fromEntries(["release-status", "release-notes-title", "release-notes-link",
-    "installer-status", "installer-link"].map(id => [id, {textContent: "", href: LATEST_RELEASE_URL}]));
+  const ids = Object.fromEntries(["release-status", "release-notes-title", "release-notes-content", "download-feedback",
+    "installer-status", "installer-link"].map(id => [id, {textContent: "", href: LATEST_RELEASE_URL, hidden: true}]));
   const platforms = ["windows", "macos"].map(platform => ({dataset: {releasePlatform: platform}, textContent: ""}));
-  return {ids, platforms, getElementById: id => ids[id], querySelectorAll: () => platforms};
+  const buttons = Object.fromEntries(["windows", "macos"].map(platform => [platform, {
+    dataset: {downloadPlatform: platform}, disabled: false, attributes: {},
+    setAttribute(name, value) {this.attributes[name] = value;},
+    removeAttribute(name) {delete this.attributes[name];},
+  }]));
+  return {ids, platforms, buttons, getElementById: id => ids[id],
+    querySelectorAll: selector => selector === "[data-release-platform]" ? platforms : Object.values(buttons),
+    querySelector: selector => buttons[selector.includes('"windows"') ? "windows" : "macos"]};
 }
 
 test("pagina: versione e note cambiano automaticamente al prossimo rilascio", async () => {
@@ -109,7 +117,7 @@ test("pagina: versione e note cambiano automaticamente al prossimo rilascio", as
     await showDownloads(document, async () => parseRelease(release(version)));
     assert.equal(document.ids["release-status"].textContent, `Versione ${version}`);
     assert.equal(document.ids["release-notes-title"].textContent, `ScoreTracker ${version}`);
-    assert.ok(document.ids["release-notes-link"].href.endsWith(`/v${version}`));
+    assert.equal(document.ids["release-notes-content"].textContent, "Non sono state pubblicate note per questa versione.");
     for (const element of document.platforms) assert.ok(element.textContent.includes(version));
   }
 });
@@ -144,7 +152,7 @@ test("pagina e gateway: API indisponibile mantiene il ripiego ufficiale, senza v
   const document = documentFixture();
   const unavailable = async () => {throw Error("API offline");};
   await showDownloads(document, unavailable);
-  assert.equal(document.ids["release-status"].textContent, "Versione disponibile su GitHub");
+  assert.equal(document.ids["release-status"].textContent, "Disponibilità da verificare");
   let destination;
   await startInstaller(document, {href: "https://example.com/get?platform=macos", replace: url => {destination=url;}}, unavailable);
   assert.equal(destination, undefined);
@@ -161,4 +169,66 @@ test("gateway: installer mancante non viene sostituito con quello dell'altra pia
     async () => parseRelease(data));
   assert.equal(destination, undefined);
   assert.equal(document.ids["installer-link"].href, LATEST_RELEASE_URL);
+});
+
+test("note: il formato HTML della release e' disponibile per la visualizzazione locale", () => {
+  const data = release();
+  data.body_html = "<h2>Novita</h2><ul><li>Nuova funzione</li></ul>";
+  assert.equal(parseRelease(data).notesHtml, data.body_html);
+  assert.equal(parseRelease({...data, body_html: "x".repeat(128001)}).notesHtml, "");
+  assert.equal(parseRelease({...data, body_html: {html: "invalid"}}).notesHtml, "");
+});
+
+test("pulsanti: download diretto dei due installer senza pagina intermedia", async () => {
+  for (const platform of ["windows", "macos"]) {
+    for (const version of ["1.0.2", "1.0.3"]) {
+      const document = documentFixture();
+      let destination;
+      const location = {href: "https://example.com/score-tracker-download.html", assign: url => {destination=url;}};
+      const metadata = parseRelease(release(version));
+      assert.equal(await downloadInstaller(platform, document, location, async () => metadata), true);
+      assert.equal(destination, metadata.installers[platform]);
+      assert.equal(location.href, "https://example.com/score-tracker-download.html");
+      assert.equal(document.buttons[platform].disabled, false);
+      assert.equal(document.buttons[platform].attributes["aria-busy"], undefined);
+      assert.equal(document.ids["download-feedback"].hidden, true);
+    }
+  }
+});
+
+test("pulsanti: un errore resta sul sito e permette di riprovare", async () => {
+  const document = documentFixture();
+  let navigations = 0;
+  assert.equal(await downloadInstaller("windows", document, {assign: () => navigations++},
+    async () => {throw Error("API offline");}), false);
+  assert.equal(navigations, 0);
+  assert.equal(document.ids["download-feedback"].hidden, false);
+  assert.ok(document.ids["download-feedback"].textContent.includes("Riprova"));
+  assert.equal(document.buttons.windows.disabled, false);
+});
+
+test("pulsanti: nessun download doppio mentre si risolve la release", async () => {
+  const document = documentFixture();
+  let calls = 0;
+  let resolve;
+  const response = new Promise(done => {resolve=done;});
+  const loader = () => {calls++; return response;};
+  const location = {assign: () => {}};
+  const first = downloadInstaller("windows", document, location, loader);
+  assert.equal(await downloadInstaller("windows", document, location, loader), false);
+  assert.equal(calls, 1);
+  resolve(parseRelease(release()));
+  assert.equal(await first, true);
+});
+
+test("pagina: piattaforma mancante disabilitata, errore iniziale riprovabile", async () => {
+  const document = documentFixture();
+  const data = release();
+  data.assets.pop();
+  await showDownloads(document, async () => parseRelease(data));
+  assert.equal(document.buttons.macos.disabled, true);
+  assert.equal(document.buttons.windows.disabled, false);
+  await showDownloads(document, async () => {throw Error("Offline");});
+  assert.equal(document.buttons.macos.disabled, false);
+  assert.equal(document.buttons.windows.disabled, false);
 });

@@ -41,7 +41,8 @@ export function parseRelease(data) {
     installers[platform] = asset.browser_download_url;
   }
   if (!Object.keys(installers).length) throw new Error("Installer non disponibili");
-  return { version, url, installers };
+  const notesHtml = typeof data.body_html === "string" && data.body_html.length <= 128000 ? data.body_html : "";
+  return { version, url, installers, notesHtml };
 }
 
 export async function fetchLatestRelease({ fetcher = globalThis.fetch, timeout = 8000 } = {}) {
@@ -49,7 +50,7 @@ export async function fetchLatestRelease({ fetcher = globalThis.fetch, timeout =
   const timer = setTimeout(() => controller.abort(), timeout);
   try {
     const response = await fetcher(LATEST_RELEASE_API, {
-      headers: { Accept: "application/vnd.github+json" },
+      headers: { Accept: "application/vnd.github.html+json" },
       cache: "no-cache", credentials: "omit", referrerPolicy: "no-referrer",
       redirect: "error", signal: controller.signal,
     });
@@ -58,21 +59,88 @@ export async function fetchLatestRelease({ fetcher = globalThis.fetch, timeout =
   } finally { clearTimeout(timer); }
 }
 
+export function renderReleaseNotes(document, html) {
+  const target = document.getElementById("release-notes-content");
+  if (!html) {
+    target.textContent = "Non sono state pubblicate note per questa versione.";
+    return;
+  }
+  // Parse in an inert template; only plain text reaches the visible document.
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  for (const element of template.content.querySelectorAll("script,style,iframe,object,embed,template")) element.remove();
+  const list = template.content.querySelector("ul,ol");
+  const entries = list ? [...list.children].filter(element => element.tagName === "LI")
+    : [...template.content.querySelectorAll("p")];
+  const notes = entries.map(element => element.textContent.trim()).filter(Boolean).slice(0, 12);
+  if (!notes.length) {
+    target.textContent = "Non sono state pubblicate note per questa versione.";
+    return;
+  }
+  const container = document.createElement(list ? "ul" : "div");
+  for (const note of notes) {
+    const element = document.createElement(list ? "li" : "p");
+    element.textContent = note.slice(0, 2000);
+    container.append(element);
+  }
+  target.replaceChildren(container);
+}
+
+function renderRelease(document, release) {
+  document.getElementById("release-status").textContent = `Versione ${release.version}`;
+  document.getElementById("release-notes-title").textContent = `ScoreTracker ${release.version}`;
+  renderReleaseNotes(document, release.notesHtml);
+  for (const element of document.querySelectorAll("[data-release-platform]")) {
+    const platform = element.dataset.releasePlatform;
+    element.textContent = release.installers[platform]
+      ? `Versione ${release.version} · File .${PLATFORMS[platform].extension}`
+      : "Installer temporaneamente non disponibile";
+  }
+  for (const button of document.querySelectorAll("[data-download-platform]")) {
+    button.disabled = !release.installers[button.dataset.downloadPlatform];
+  }
+}
+
 export async function showDownloads(document, loadRelease = fetchLatestRelease) {
-  const status = document.getElementById("release-status");
   try {
     const release = await loadRelease();
-    status.textContent = `Versione ${release.version}`;
-    document.getElementById("release-notes-title").textContent = `ScoreTracker ${release.version}`;
-    document.getElementById("release-notes-link").href = release.url;
-    for (const element of document.querySelectorAll("[data-release-platform]")) {
-      const platform = element.dataset.releasePlatform;
-      element.textContent = release.installers[platform]
-        ? `Versione ${release.version} · File .${PLATFORMS[platform].extension}`
-        : "Installer temporaneamente non disponibile";
-    }
+    renderRelease(document, release);
   } catch {
-    status.textContent = "Versione disponibile su GitHub";
+    document.getElementById("release-status").textContent = "Disponibilità da verificare";
+    for (const button of document.querySelectorAll("[data-download-platform]")) button.disabled = false;
+  }
+}
+
+export async function downloadInstaller(platform, document, location, loadRelease = fetchLatestRelease) {
+  if (!Object.hasOwn(PLATFORMS, platform)) return false;
+  const button = document.querySelector(`[data-download-platform="${platform}"]`);
+  if (!button || button.disabled) return false;
+  const feedback = document.getElementById("download-feedback");
+  button.disabled = true;
+  button.setAttribute("aria-busy", "true");
+  feedback.hidden = true;
+  try {
+    const release = await loadRelease();
+    renderRelease(document, release);
+    const installer = release.installers[platform];
+    if (!installer) throw new Error("Installer non disponibile");
+    location.assign(installer);
+    return true;
+  } catch {
+    feedback.textContent = "Download temporaneamente non disponibile. Riprova tra poco o contattaci.";
+    feedback.hidden = false;
+    return false;
+  } finally {
+    button.disabled = false;
+    button.removeAttribute("aria-busy");
+  }
+}
+
+function bindDownloads(document, location) {
+  for (const button of document.querySelectorAll("[data-download-platform]")) {
+    button.addEventListener("click", () => {
+      void downloadInstaller(button.dataset.downloadPlatform, document, location);
+    });
   }
 }
 
@@ -101,6 +169,7 @@ if (typeof document !== "undefined") {
   if (document.body.hasAttribute("data-installer-gateway")) {
     void startInstaller(document, window.location);
   } else if (document.getElementById("release-status")) {
+    bindDownloads(document, window.location);
     void showDownloads(document);
   }
 }

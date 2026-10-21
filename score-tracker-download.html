@@ -30,6 +30,8 @@
     .release-notes{margin-top:40px;padding-top:30px;border-top:1px solid var(--line)}.release-notes h2{margin:12px 0 14px;font:600 25px 'Manrope',sans-serif;letter-spacing:-.04em}.release-notes p:not(.eyebrow){max-width:680px;margin:0;color:var(--muted);font-size:14px;line-height:1.8}.help{display:inline-block;margin-top:24px;color:var(--lime);font-size:13px;text-decoration:underline;text-underline-offset:4px}footer{display:flex;justify-content:space-between;gap:20px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
     .update-instructions{margin:0 0 24px;padding:16px 20px;border:1px solid var(--line);background:rgba(7,16,13,.8);color:var(--muted);font-size:14px;line-height:1.8}.update-instructions p{margin:0}.update-instructions p+p{margin-top:6px}.update-instructions strong{color:var(--white)}
     .release-notes p:not(.eyebrow) + p{margin-top:14px}
+    .button:disabled{opacity:.55;cursor:wait}.download-feedback{color:#e5cfa5;font-size:14px;line-height:1.7}
+    .release-notes ul{max-width:800px;margin:18px 0;padding-left:22px;color:var(--muted);font-size:14px;line-height:1.8;overflow-wrap:anywhere}.release-notes li+li{margin-top:10px}
     @media(max-width:680px){.wrap{width:calc(100% - 36px)}.header-inner{padding:16px 0;gap:16px;flex-wrap:wrap}.brand small{font-size:8px}nav{gap:20px;font-size:12px}main{padding:40px 0 56px}main:before,main:after{height:570px}main:before{background-position:57% bottom;opacity:.43}main:after{background:linear-gradient(90deg,rgba(7,16,13,.92),rgba(7,16,13,.58)),linear-gradient(0deg,#07100d 0%,transparent 60%)}.requirements{grid-template-columns:1fr;gap:16px;margin-top:26px}.platforms{grid-template-columns:1fr;row-gap:18px}.platform{grid-template-rows:auto;grid-row:auto;padding:26px}.platform p{margin-bottom:20px}.platform .installer-note{margin-bottom:22px}.intro{font-size:15px}footer{flex-wrap:wrap}}
   </style>
 </head>
@@ -63,7 +65,7 @@
         <h2>Windows x64</h2>
         <p>Installer per PC Windows a 64 bit. Java incluso.</p>
         <p class="installer-note" id="windows-signing">L’installer non è firmato digitalmente. Windows potrebbe mostrare un avviso di sicurezza.</p>
-        <a class="button" href="score-tracker-installer.html?platform=windows" aria-describedby="windows-signing">Scarica per Windows x64</a>
+        <button class="button" type="button" data-download-platform="windows" aria-describedby="windows-signing" disabled>Scarica per Windows x64</button>
         <span class="availability" data-release-platform="windows">File .exe</span>
       </article>
       <article class="platform">
@@ -71,15 +73,17 @@
         <h2>macOS Apple Silicon</h2>
         <p>Per Mac con chip Apple M1 e successivi. <strong>Non compatibile con Mac Intel.</strong> Java incluso.</p>
         <p class="installer-note" id="macos-signing">L’app non è notarizzata. macOS potrebbe mostrare un avviso di sicurezza.</p>
-        <a class="button" href="score-tracker-installer.html?platform=macos" aria-describedby="macos-signing">Scarica per macOS Apple Silicon</a>
+        <button class="button" type="button" data-download-platform="macos" aria-describedby="macos-signing" disabled>Scarica per macOS Apple Silicon</button>
         <span class="availability" data-release-platform="macos">File .dmg</span>
       </article>
     </section>
+    <p class="download-feedback" id="download-feedback" role="alert" hidden></p>
+    <noscript><p>Per scaricare ScoreTracker da questa pagina è necessario attivare JavaScript. In alternativa, <a href="index.html#contatti">contattaci</a>.</p></noscript>
     <section class="release-notes" aria-labelledby="release-notes-title">
       <p class="eyebrow">Note di versione</p>
       <h2 id="release-notes-title">ScoreTracker</h2>
       <p>Installer per Windows x64 e macOS Apple Silicon, con Java incluso. È richiesta una licenza valida.</p>
-      <p><a class="help" id="release-notes-link" href="https://github.com/domecose96/ScoreTracker-Downloads/releases/latest">Novità e dettagli della versione</a></p>
+      <div id="release-notes-content"><p>Le novità della versione saranno disponibili qui.</p></div>
       <p><strong>Nota per l’installazione:</strong> i pacchetti non dispongono ancora della firma digitale Windows e della notarizzazione Apple; il sistema potrebbe mostrare un avviso di sicurezza. La versione Mac non è compatibile con processori Intel.</p>
     </section>
     <a class="help" href="index.html#contatti">Hai bisogno di informazioni? Contatta DVS</a>

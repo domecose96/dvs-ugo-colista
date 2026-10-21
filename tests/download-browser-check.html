@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="it">
+<meta charset="utf-8">
+<title>Verifica note ScoreTracker</title>
+<body>
+  <div id="release-notes-content"></div>
+  <pre id="results">Verifica in corso</pre>
+  <script type="module">
+    import {renderReleaseNotes} from '../assets/score-tracker/downloads.mjs';
+    const results = [];
+    const target = document.getElementById('release-notes-content');
+    function check(name, condition) {if (!condition) throw Error(name); results.push('OK: ' + name);}
+    try {
+      renderReleaseNotes(document, '<h1>Versione</h1><ul><li>Prima novità</li><li><strong>Seconda</strong> novità</li></ul><ul><li>Requisiti</li></ul>');
+      check('Novità leggibili, senza duplicare i requisiti', target.querySelectorAll('li').length === 2 && !target.textContent.includes('Requisiti'));
+      renderReleaseNotes(document, '<ul><li>Foto <a href="javascript:alert(1)">aggiornate</a><img src="data:image/png," onerror="document.body.dataset.injected=1"><script>document.body.dataset.injected=1;<\/script></li></ul>');
+      check('Nessun link, script o immagine importato dalle note', target.querySelectorAll('a,script,img,iframe').length === 0);
+      check('Nessun codice eseguito', !document.body.hasAttribute('data-injected'));
+      check('Solo testo visibile', target.textContent.trim() === 'Foto aggiornate');
+      renderReleaseNotes(document, '<p>Una descrizione senza elenco</p>');
+      check('Note in forma di paragrafo', target.querySelector('p').textContent === 'Una descrizione senza elenco');
+      renderReleaseNotes(document, '');
+      check('Note vuote gestite senza pagina esterna', target.textContent.includes('Non sono state pubblicate'));
+      document.getElementById('results').textContent = results.join('\n') + '\n6 verifiche superate';
+    } catch (error) {document.getElementById('results').textContent = results.join('\n') + '\nERRORE: ' + error.message;}
+  </script>
+</body>
+</html>

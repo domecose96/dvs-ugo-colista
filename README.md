@@ -28,11 +28,24 @@ Il marchio SVG in `assets/dvs-logo.svg` è una ricostruzione vettoriale basata s
 ## Download ScoreTracker
 
 La pagina prodotto `score-tracker.html` contiene il pulsante Download verso
-`score-tracker-download.html`. Versione e note rimandano automaticamente
-all'ultima release stabile pubblicata in `domecose96/ScoreTracker-Downloads`.
+`score-tracker-download.html`. Versione, novita' e pulsanti si aggiornano
+dall'ultima release stabile pubblicata in `domecose96/ScoreTracker-Downloads`.
 Non servono aggiornamenti manuali dei numeri versione o dei link nel sito.
 
-Indirizzi permanenti, utilizzabili anche in altri siti o messaggi:
+I pulsanti Windows e Mac avviano direttamente il file ufficiale senza
+navigare verso una pagina intermedia. Prima del download viene verificata
+di nuovo l'ultima release; durante la richiesta il pulsante rimane occupato.
+Se la richiesta fallisce, un messaggio nella pagina permette di riprovare,
+senza mandare il visitatore su GitHub.
+
+Le novita' sono mostrate nella pagina: il modulo richiede il formato HTML
+delle note all'API GitHub, lo analizza in un template inerte e copia soltanto
+testo in un elenco locale. Link, immagini, script e altro markup esterno
+non vengono inseriti nel documento visibile. Se la release non ha un elenco,
+vengono utilizzati i paragrafi disponibili.
+
+Indirizzi permanenti opzionali, utilizzabili in altri siti o messaggi
+(non utilizzati dai pulsanti della pagina principale):
 
 - Windows x64: `score-tracker-installer.html?platform=windows`
 - macOS Apple Silicon: `score-tracker-installer.html?platform=macos`
@@ -41,10 +54,11 @@ Indirizzi permanenti, utilizzabili anche in altri siti o messaggi:
 esclusivamente installer EXE/DMG del repository ufficiale, corrispondenti al
 tag della release, caricati e dotati di digest SHA-256. Bozze, prerelease,
 URL estranei, parametri aggiuntivi e asset duplicati vengono respinti.
-Il gateway risolve di nuovo l'ultima release a ogni apertura; non salva link
-obsoleti in localStorage. Se l'API non risponde, supera il tempo limite o
-raggiunge il rate limit, resta disponibile la pagina ufficiale dei download.
-Anche senza JavaScript esiste il collegamento manuale a GitHub.
+Il gateway opzionale risolve l'ultima release a ogni apertura e mantiene un
+ripiego verso i download ufficiali se l'API non risponde. La pagina principale
+invece gestisce l'errore sul posto. Non si salvano link obsoleti in localStorage.
+I download automatici richiedono JavaScript; in sua assenza rimane disponibile
+il contatto di assistenza.
 
 Java è incluso; per utilizzare l’app serve una licenza valida. La pagina segnala
 che Windows non è firmato digitalmente e macOS non è notarizzato.
